@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\DashboardIndex;
 use App\Livewire\BahanBakuIndex;
 use App\Livewire\DapurIndex;
 use App\Livewire\ProdukJadiIndex;
@@ -10,8 +11,8 @@ use Illuminate\Http\Request;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+Route::get('dashboard', DashboardIndex::class)
+    ->middleware(['auth'])
     ->name('dashboard');
 
 Route::view('profile', 'profile')
