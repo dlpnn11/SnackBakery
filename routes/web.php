@@ -9,7 +9,9 @@ use App\Livewire\KasirIndex;
 use App\Livewire\Actions\Logout;
 use Illuminate\Http\Request;
 
-Route::view('/', 'welcome');
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
 Route::get('dashboard', DashboardIndex::class)
     ->middleware(['auth'])
