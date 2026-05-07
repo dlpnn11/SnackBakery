@@ -6,6 +6,7 @@ use App\Models\BahanBaku;
 use App\Models\ProdukJadi;
 use App\Models\Resep;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -60,6 +61,14 @@ class ProdukJadiIndex extends Component
             'stok.required'         => 'Stok wajib diisi.',
             'minimum_stok.required' => 'Minimum stok wajib diisi.',
         ];
+    }
+
+    // ── Global Search Listener ─────────────────
+    #[On('global-search')]
+    public function handleGlobalSearch(string $value): void
+    {
+        $this->search = $value;
+        $this->resetPage();
     }
 
     public function updatingSearch(): void

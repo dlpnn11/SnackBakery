@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\BahanBaku;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -72,6 +73,14 @@ class BahanBakuIndex extends Component
     }
 
     // ── Reset pagination on search ────────────────
+    // ── Global Search Listener ─────────────────
+    #[On('global-search')]
+    public function handleGlobalSearch(string $value): void
+    {
+        $this->search = $value;
+        $this->resetPage();
+    }
+
     public function updatingSearch(): void
     {
         $this->resetPage();

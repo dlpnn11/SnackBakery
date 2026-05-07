@@ -60,11 +60,6 @@
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <h2 class="text-base font-bold text-[#8B5E3C]">Daftar Bahan Baku</h2>
             <div class="flex items-center gap-3">
-                <div class="relative">
-                    <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari bahan..."
-                           class="pl-9 pr-4 py-2 w-48 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
-                </div>
                 <button wire:click="openCreateModal"
                         class="flex items-center gap-2 bg-[#D4831F] hover:bg-[#b86a16] text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
