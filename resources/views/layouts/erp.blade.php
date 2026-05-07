@@ -22,17 +22,41 @@
             ::-webkit-scrollbar-track { background: transparent; }
             ::-webkit-scrollbar-thumb { background: #d4a574; border-radius: 3px; }
             ::-webkit-scrollbar-thumb:hover { background: #b86a16; }
+            
+            /* Sembunyikan Alpine.js sebelum load */
+            [x-cloak] { display: none !important; }
         </style>
     </head>
     <body class="antialiased bg-[#fdf6ec]">
-        <div class="flex min-h-screen">
+        <div class="flex min-h-screen" x-data="{ sidebarOpen: false }">
+
+            {{-- ============================================ --}}
+            {{-- MOBILE OVERLAY --}}
+            {{-- ============================================ --}}
+            <div x-show="sidebarOpen" 
+                 x-cloak
+                 x-transition:enter="transition-opacity ease-linear duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition-opacity ease-linear duration-300"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 @click="sidebarOpen = false" 
+                 class="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm">
+            </div>
 
             {{-- ============================================ --}}
             {{-- SIDEBAR --}}
             {{-- ============================================ --}}
-            <aside class="w-[230px] bg-[#4A2E19] text-white flex flex-col fixed inset-y-0 left-0 z-30 shadow-xl">
+            <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+                   class="w-[230px] bg-[#4A2E19] text-white flex flex-col fixed inset-y-0 left-0 z-50 shadow-xl transform transition-transform duration-300 ease-in-out md:translate-x-0">
                 {{-- Logo Area --}}
-                <div class="flex flex-col items-center py-6 px-4 border-b border-white/10">
+                <div class="flex flex-col items-center py-6 px-4 border-b border-white/10 relative">
+                    {{-- Tombol Tutup Sidebar (Hanya Mobile) --}}
+                    <button @click="sidebarOpen = false" class="absolute top-4 right-4 md:hidden text-white/60 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+
                     <div class="w-14 h-14 bg-[#F5E6D3] rounded-full flex items-center justify-center mb-2 shadow-md">
                         <svg class="w-8 h-8 text-[#8B5E3C]" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -79,7 +103,6 @@
                         </div>
                     </div>
 
-                    {{-- Placeholder links (disabled) --}}
                     <a href="{{ route('dapur.index') }}" wire:navigate
                        class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
                               {{ request()->routeIs('dapur.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
@@ -124,22 +147,30 @@
             {{-- ============================================ --}}
             {{-- MAIN CONTENT AREA --}}
             {{-- ============================================ --}}
-            <div class="flex-1 ml-[230px]">
+            <div class="flex-1 md:ml-[230px] flex flex-col min-w-0 transition-all duration-300">
                 {{-- Top Bar --}}
-                <header class="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-[#e8d5b8]/50 px-8 py-3">
-                    <div class="flex items-center justify-between">
-                        {{-- Global Search Bar --}}
-                        <div class="relative" x-data>
-                            <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                            <input type="text" placeholder="Telusuri..."
-                                   x-on:input.debounce.500ms="$dispatch('global-search', { search: $event.target.value })"
-                                   x-on:keyup.escape="$event.target.value = ''; $dispatch('global-search', { search: '' })"
-                                   class="pl-10 pr-4 py-2 w-72 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all duration-200" />
+                <header class="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-[#e8d5b8]/50 px-4 md:px-8 py-3">
+                    <div class="flex items-center justify-between gap-4">
+                        
+                        <div class="flex items-center gap-3 flex-1">
+                            {{-- Hamburger Menu (Mobile) --}}
+                            <button @click="sidebarOpen = true" class="md:hidden text-[#8B5E3C] hover:bg-[#F5E6D3] p-1.5 rounded-lg transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                            </button>
+
+                            {{-- Global Search Bar --}}
+                            <div class="relative w-full max-w-xs" x-data>
+                                <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                <input type="text" placeholder="Telusuri..."
+                                       x-on:input.debounce.500ms="$dispatch('global-search', { search: $event.target.value })"
+                                       x-on:keyup.escape="$event.target.value = ''; $dispatch('global-search', { search: '' })"
+                                       class="pl-10 pr-4 py-2 w-full bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all duration-200" />
+                            </div>
                         </div>
 
                         {{-- User Info --}}
-                        <div class="flex items-center gap-3">
-                            <span class="text-sm text-gray-600">Halo, <strong class="text-gray-800">{{ Auth::user()->name }}</strong></span>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <span class="hidden sm:inline text-sm text-gray-600">Halo, <strong class="text-gray-800">{{ Auth::user()->name }}</strong></span>
                             <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#D4831F] to-[#8B5E3C] flex items-center justify-center text-white font-semibold text-sm shadow-md">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </div>
@@ -148,7 +179,7 @@
                 </header>
 
                 {{-- Page Content --}}
-                <main class="p-8">
+                <main class="p-4 md:p-8 flex-1 overflow-x-hidden">
                     {{ $slot }}
                 </main>
             </div>
