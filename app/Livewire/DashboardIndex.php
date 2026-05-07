@@ -5,12 +5,22 @@ namespace App\Livewire;
 use App\Models\BahanBaku;
 use App\Models\ProdukJadi;
 use App\Models\Transaksi;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class DashboardIndex extends Component
 {
     use WithPagination;
+
+    public string $search = '';
+
+    #[On('global-search')]
+    public function handleGlobalSearch(string $search = ''): void
+    {
+        $this->search = $search;
+        $this->resetPage();
+    }
 
     // ── Modal Struk ────────────────────────────────
     public bool        $showStruk    = false;
@@ -41,7 +51,12 @@ class DashboardIndex extends Component
         $labaKotorBersih   = $totalPendapatan - $totalHpp;
 
         // ── Riwayat Transaksi (paginasi 10) ────────
-        $transaksiList = Transaksi::withCount('detailTransaksi')
+        $transaksiQuery = Transaksi::withCount('detailTransaksi');
+        if ($this->search) {
+            $transaksiQuery->where('id', 'like', '%' . $this->search . '%')
+                           ->orWhere('metode_pembayaran', 'like', '%' . $this->search . '%');
+        }
+        $transaksiList = $transaksiQuery
             ->orderByDesc('tanggal_transaksi')
             ->orderByDesc('id')
             ->paginate(10);

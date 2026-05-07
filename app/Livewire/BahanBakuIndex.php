@@ -75,9 +75,9 @@ class BahanBakuIndex extends Component
     // ── Reset pagination on search ────────────────
     // ── Global Search Listener ─────────────────
     #[On('global-search')]
-    public function handleGlobalSearch(string $value): void
+    public function handleGlobalSearch(string $search = ''): void
     {
-        $this->search = $value;
+        $this->search = $search;
         $this->resetPage();
     }
 

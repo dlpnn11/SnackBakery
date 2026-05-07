@@ -65,9 +65,9 @@ class ProdukJadiIndex extends Component
 
     // ── Global Search Listener ─────────────────
     #[On('global-search')]
-    public function handleGlobalSearch(string $value): void
+    public function handleGlobalSearch(string $search = ''): void
     {
-        $this->search = $value;
+        $this->search = $search;
         $this->resetPage();
     }
 

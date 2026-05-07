@@ -6,11 +6,13 @@ use App\Models\BahanBaku;
 use App\Models\ProdukJadi;
 use App\Models\Resep;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DapurIndex extends Component
 {
     // ── State ──────────────────────────────────────
+    public string $search             = '';
     public ?int   $selectedProdukId   = null;
     public int    $jumlahMasak        = 1;
     public string $flashMessage       = '';
@@ -19,6 +21,12 @@ class DapurIndex extends Component
     // ── Computed cache (tidak disimpan ke session) ─
     /** @var array{max:int, bottleneck:string|null, simulasi:array} */
     public array  $kalkulasi          = [];
+
+    #[On('global-search')]
+    public function handleGlobalSearch(string $search = ''): void
+    {
+        $this->search = $search;
+    }
 
     // ── Pilih Produk ───────────────────────────────
     public function pilihProduk(int $id): void
@@ -175,7 +183,11 @@ class DapurIndex extends Component
     // ── Render ────────────────────────────────────
     public function render()
     {
-        $produkList = ProdukJadi::withCount('resep')->orderBy('nama_produk')->get();
+        $query = ProdukJadi::withCount('resep')->orderBy('nama_produk');
+        if ($this->search) {
+            $query->where('nama_produk', 'like', '%' . $this->search . '%');
+        }
+        $produkList = $query->get();
 
         $selectedProduk = null;
         $resepDetail    = collect();

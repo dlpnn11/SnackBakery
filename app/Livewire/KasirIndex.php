@@ -7,16 +7,24 @@ use App\Models\ProdukJadi;
 use App\Models\Resep;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class KasirIndex extends Component
 {
     // ── Cart ── format: [ "produkId" => [...] ] ─────
     public array  $cart             = [];
+    public string $search           = '';
     public string $metodePembayaran = 'tunai';
     public string $nominalDiterima  = '';
     public string $flashMessage     = '';
     public string $flashType        = 'success';
+
+    #[On('global-search')]
+    public function handleGlobalSearch(string $search = ''): void
+    {
+        $this->search = $search;
+    }
 
     // ── Tambah ke keranjang (atau increment qty) ────
     public function tambahKeKeranjang(int $id): void
@@ -161,7 +169,12 @@ class KasirIndex extends Component
 
     public function render()
     {
-        $produkList      = ProdukJadi::where('stok', '>', 0)->orderBy('nama_produk')->get();
+        $query = ProdukJadi::where('stok', '>', 0)->orderBy('nama_produk');
+        if ($this->search) {
+            $query->where('nama_produk', 'like', '%' . $this->search . '%');
+        }
+        $produkList = $query->get();
+
         $totalPendapatan = $this->getTotalPendapatanProperty();
         $totalItem       = $this->getTotalItemProperty();
 
