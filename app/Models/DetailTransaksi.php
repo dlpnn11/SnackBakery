@@ -25,7 +25,7 @@ class DetailTransaksi extends Model
     }
 
     /**
-     * Detail ini milik satu transaksi induk.
+     * Detail ini milik satu transaksi induk
      */
     public function transaksi(): BelongsTo
     {
@@ -33,7 +33,7 @@ class DetailTransaksi extends Model
     }
 
     /**
-     * Detail ini merujuk ke satu produk jadi.
+     * Detail ini merujuk ke satu produk jadi
      */
     public function produkJadi(): BelongsTo
     {

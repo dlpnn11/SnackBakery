@@ -26,7 +26,7 @@ class ProdukJadi extends Model
     }
 
     /**
-     * Satu produk jadi memiliki banyak baris resep (kebutuhan bahan).
+     * Satu produk jadi memiliki banyak baris resep (kebutuhan bahan)
      */
     public function resep(): HasMany
     {
@@ -34,7 +34,7 @@ class ProdukJadi extends Model
     }
 
     /**
-     * Satu produk jadi bisa muncul di banyak detail transaksi.
+     * Satu produk jadi bisa muncul di banyak detail transaksi
      */
     public function detailTransaksi(): HasMany
     {

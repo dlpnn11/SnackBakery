@@ -21,9 +21,6 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-// ──────────────────────────────────────
-// Dunia Gudang
-// ──────────────────────────────────────
 Route::middleware(['auth'])->group(function () {
     Route::get('bahan-baku', BahanBakuIndex::class)->name('bahan-baku.index');
     Route::get('produk-jadi', ProdukJadiIndex::class)->name('produk-jadi.index');

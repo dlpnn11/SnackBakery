@@ -29,7 +29,7 @@ class BahanBaku extends Model
     }
 
     /**
-     * Bahan baku digunakan di banyak resep.
+     * Bahan baku digunakan di banyak resep
      */
     public function resep(): HasMany
     {

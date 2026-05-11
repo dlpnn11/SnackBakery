@@ -26,7 +26,7 @@ class Transaksi extends Model
     }
 
     /**
-     * Satu transaksi memiliki banyak detail (item yang dibeli).
+     * Satu transaksi memiliki banyak detail (item yang dibeli)
      */
     public function detailTransaksi(): HasMany
     {

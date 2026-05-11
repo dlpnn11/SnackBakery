@@ -23,7 +23,7 @@ class Resep extends Model
     }
 
     /**
-     * Resep ini milik satu produk jadi.
+     * Resep ini milik satu produk jadi
      */
     public function produkJadi(): BelongsTo
     {
@@ -31,7 +31,7 @@ class Resep extends Model
     }
 
     /**
-     * Resep ini menggunakan satu bahan baku.
+     * Resep ini menggunakan satu bahan baku
      */
     public function bahanBaku(): BelongsTo
     {

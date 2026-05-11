@@ -3,7 +3,7 @@
     @if($flashMessage)
     <div x-data="{show:true}" x-show="show" x-init="setTimeout(()=>show=false,4500)"
          x-transition:leave="transition ease-in duration-300" x-transition:leave-end="opacity-0"
-         class="fixed top-5 right-5 z-[999] max-w-sm md:max-w-md px-5 py-3 rounded-xl shadow-lg text-white text-sm font-medium
+         class="fixed top-5 right-5 z-999 max-w-sm md:max-w-md px-5 py-3 rounded-xl shadow-lg text-white text-sm font-medium
                 {{ $flashType==='success' ? 'bg-emerald-500' : 'bg-red-500' }}">
         {{ $flashMessage }}
     </div>
@@ -12,7 +12,7 @@
     {{-- Page Header --}}
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
         <div>
-            <h1 class="text-xl md:text-2xl font-bold text-[#8B5E3C]">🛒 Kasir / POS</h1>
+            <h1 class="text-xl md:text-2xl font-bold text-[#8B5E3C]">🛒 Kasir </h1>
             <p class="text-xs md:text-sm text-gray-400 mt-0.5">Pencatatan transaksi penjualan organik</p>
         </div>
         @if(!empty($cart))
