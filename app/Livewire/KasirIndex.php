@@ -16,7 +16,7 @@ class KasirIndex extends Component
     public array  $cart             = [];
     public string $search           = '';
     public string $metodePembayaran = 'tunai';
-    public string $nominalDiterima  = '';
+    public string $nominalBayar     = '';
     public string $flashMessage     = '';
     public string $flashType        = 'success';
 
@@ -67,7 +67,7 @@ class KasirIndex extends Component
     public function kosongkanKeranjang(): void
     {
         $this->cart            = [];
-        $this->nominalDiterima = '';
+        $this->nominalBayar    = '';
     }
 
     // ── Totals ────────────────────────────────────
@@ -79,6 +79,14 @@ class KasirIndex extends Component
     public function getTotalItemProperty(): int
     {
         return (int) collect($this->cart)->sum(fn($i) => $i['qty']);
+    }
+
+    public function getKembalianProperty(): int
+    {
+        $nominal = (int) str_replace(['.', ','], '', $this->nominalBayar);
+        $tagihan = $this->getTotalPendapatanProperty();
+        $kembalian = $nominal - $tagihan;
+        return $kembalian > 0 ? $kembalian : 0;
     }
 
     // ── HPP Calculation ───────────────────────────
@@ -110,11 +118,11 @@ class KasirIndex extends Component
             return;
         }
 
-        $nominal         = (int) str_replace(['.', ','], '', $this->nominalDiterima);
+        $nominal         = (int) str_replace(['.', ','], '', $this->nominalBayar);
         $totalPendapatan = $this->getTotalPendapatanProperty();
 
-        if ($nominal < $totalPendapatan) {
-            $this->flash('Nominal uang diterima kurang dari total belanja!', 'danger');
+        if ($this->metodePembayaran === 'tunai' && $nominal < $totalPendapatan) {
+            $this->flash('Nominal uang bayar kurang dari total belanja!', 'danger');
             return;
         }
 

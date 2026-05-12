@@ -92,6 +92,9 @@ class DapurIndex extends Component
     // ── Update simulasi saat jumlahMasak berubah ───
     public function updatedJumlahMasak(): void
     {
+        if (empty($this->jumlahMasak) || $this->jumlahMasak < 0) {
+            $this->jumlahMasak = 0;
+        }
         if ($this->selectedProdukId) {
             $this->kalkulasi = $this->hitungKalkulasi($this->selectedProdukId);
         }

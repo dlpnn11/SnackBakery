@@ -272,11 +272,9 @@ class BahanBakuIndex extends Component
         $totalItem     = $all->count();
         $totalStok     = $all->sum('stok');
         $totalNilai    = $all->sum(fn($b) => $b->stok * $b->harga_beli_persatuan);
-        $totalExpiring = $all->filter(fn($b) =>
-            $b->tanggal_expired &&
-            now()->lte($b->tanggal_expired) &&
-            now()->diffInDays($b->tanggal_expired) <= 30
-        )->count();
+        $totalExpiring = BahanBaku::whereNotNull('tanggal_expired')
+            ->whereDate('tanggal_expired', '<', now())
+            ->count();
 
         return view('livewire.bahan-baku-index', compact(
             'bahanBakus',

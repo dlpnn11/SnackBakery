@@ -38,7 +38,7 @@
                 <svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
             </div>
             <div>
-                <p class="text-[10px] md:text-[11px] text-gray-400 font-medium uppercase tracking-wide">Total profil</p>
+                <p class="text-[10px] md:text-[11px] text-gray-400 font-medium uppercase tracking-wide">Total Pembelian Bahan Baku</p>
                 <p class="text-lg md:text-xl font-bold text-gray-800">Rp{{ number_format($totalNilai,0,',','.') }}</p>
             </div>
         </div>
@@ -206,7 +206,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-gray-600 mb-1.5">Jumlah Stok <span class="text-red-400">*</span></label>
-                            <input type="number" step="0.01" wire:model="jumlah_input" placeholder="contoh: 5"
+                            <input type="number" step="0.01" min="0" wire:model="jumlah_input" placeholder="contoh: 5"
                                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
                             @error('jumlah_input')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
                         </div>
@@ -230,7 +230,7 @@
                         <label class="block text-xs font-semibold text-gray-600 mb-1.5">Harga Beli (per satuan input) <span class="text-red-400">*</span></label>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">Rp</span>
-                            <input type="number" wire:model="harga_input" placeholder="20000"
+                            <input type="number" min="0" wire:model="harga_input" placeholder="20000"
                                    class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
                         </div>
                         @error('harga_input')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
@@ -240,7 +240,7 @@
                     {{-- Minimum Stok --}}
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 mb-1.5">Minimum Stok <span class="text-red-400">*</span></label>
-                        <input type="number" step="0.01" wire:model="minimum_stok" placeholder="contoh: 500"
+                        <input type="number" step="0.01" min="0" wire:model="minimum_stok" placeholder="contoh: 500"
                                class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
                         @error('minimum_stok')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
                     </div>

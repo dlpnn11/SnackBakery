@@ -48,7 +48,7 @@ class ProdukJadiIndex extends Component
             'stok'                           => 'required|integer|min:0',
             'minimum_stok'                   => 'required|integer|min:0',
             'resepRows.*.bahan_baku_id'      => 'nullable|exists:bahan_baku,id',
-            'resepRows.*.kebutuhan_satuan'   => 'nullable|numeric|min:0.01',
+            'resepRows.*.kebutuhan_satuan'   => 'nullable|integer|min:1',
         ];
     }
 

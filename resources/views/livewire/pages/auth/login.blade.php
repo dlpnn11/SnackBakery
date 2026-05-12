@@ -48,25 +48,24 @@ new #[Layout('layouts.guest')] class extends Component
     {{-- Logo & Header --}}
     <div class="flex flex-col items-center mb-8">
         <div class="w-20 h-20 bg-[#fdf0e0] rounded-full flex items-center justify-center mb-4 shadow-sm border-4 border-white/50">
-            <svg class="w-10 h-10 text-[#d4995f]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
+            <img src="{{ asset('img/logo-snackbakery.png') }}" alt="logo" class="w-35 h-35 object-contain">
+            {{-- <x-application-logo class="w-10 h-10 text-[#d4995f]" /> --}}
         </div>
-        <h2 class="text-[22px] font-bold text-[#8B5E3C]">Managemen Stok</h2>
+        <h2 class="text-[22px] font-bold text-[#8B5E3C]">Snack & Bakery</h2>
         <h3 class="text-xl font-medium text-gray-400 mt-1">Login</h3>
     </div>
 
     <form wire:submit="login" class="space-y-5">
         <!-- Email Address -->
         <div>
-            <label for="email" class="block text-sm font-semibold text-[#8B5E3C] mb-1.5">Nama Pengguna</label>
+            <label for="email" class="block text-sm font-semibold text-[#8B5E3C] mb-1.5">Email</label>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="w-5 h-5 text-[#D4831F]" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                     </svg>
                 </div>
-                <input wire:model="form.email" id="email" type="email" name="email" required autofocus autocomplete="username" placeholder="Username / Email"
+                <input wire:model="form.email" id="email" type="email" name="email" required autofocus autocomplete="username" placeholder="Email"
                        class="pl-10 w-full rounded-xl border-[#ecddc8] text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] transition-all" />
             </div>
             <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
@@ -86,13 +85,7 @@ new #[Layout('layouts.guest')] class extends Component
             </div>
             <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
             
-            <div class="flex justify-end mt-2">
-                @if (Route::has('password.request'))
-                    <a class="text-[11px] font-medium text-[#d4995f] hover:text-[#8B5E3C] transition-colors" href="{{ route('password.request') }}" wire:navigate>
-                        Lupa password?
-                    </a>
-                @endif
-            </div>
+
         </div>
 
         <!-- Submit Button -->

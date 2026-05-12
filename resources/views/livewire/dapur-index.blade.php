@@ -212,7 +212,7 @@
                         <div class="flex items-center gap-2">
                             <button wire:click="$set('jumlahMasak', {{ max(1, $jumlahMasak - 1) }})"
                                     class="w-9 h-9 md:w-10 md:h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-all font-bold text-lg shrink-0">−</button>
-                            <input type="number" wire:model.live="jumlahMasak" min="1"
+                            <input type="number" wire:model.live="jumlahMasak" min="0"
                                    max="{{ $kalkulasi['max'] ?? 9999 }}"
                                    class="w-24 text-center px-3 py-2 border border-gray-200 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none"/>
                             <button wire:click="$set('jumlahMasak', {{ $jumlahMasak + 1 }})"

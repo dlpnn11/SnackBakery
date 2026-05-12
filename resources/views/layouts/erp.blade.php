@@ -58,7 +58,8 @@
                     </button>
 
                     <div class="w-14 h-14 bg-[#F5E6D3] rounded-full flex items-center justify-center mb-2 shadow-md">
-                        <svg class="w-8 h-8 text-[#8B5E3C]" fill="currentColor" viewBox="0 0 24 24">
+                        <img src="{{ asset('img/logo-snackbakery.png') }}" alt="logo" class="w-35 h-35 object-contain">
+                        {{-- <svg class="w-8 h-8 text-[#8B5E3C]" fill="currentColor" viewBox="0 0 24 24"> --}}
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
                     </div>
@@ -120,11 +121,11 @@
 
                 {{-- Bottom Section --}}
                 <div class="border-t border-white/10 p-3 space-y-1">
-                    <a href="{{ route('profile') }}" wire:navigate
+                    {{-- <a href="{{ route('profile') }}" wire:navigate
                        class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-white/70 hover:bg-white/10 hover:text-white transition-all duration-200">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         Pengaturan
-                    </a>
+                    </a> --}}
                     <button x-data
                             @click="
                                 const form = document.createElement('form');

@@ -13,7 +13,7 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
         <div>
             <h1 class="text-xl md:text-2xl font-bold text-[#8B5E3C]">🛒 Kasir </h1>
-            <p class="text-xs md:text-sm text-gray-400 mt-0.5">Pencatatan transaksi penjualan organik</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-0.5">Pencatatan transaksi penjualan </p>
         </div>
         @if(!empty($cart))
         <button wire:click="kosongkanKeranjang"
@@ -27,9 +27,7 @@
     {{-- SPLIT LAYOUT --}}
     <div class="flex flex-col lg:flex-row gap-6 items-start">
 
-        {{-- ═══════════════════════════════════════ --}}
-        {{-- PANEL KIRI — Grid Produk (2/3) ──────── --}}
-        {{-- ═══════════════════════════════════════ --}}
+        {{-- PANEL KIRI — Grid Produk (2/3)  --}}
         <div class="w-full lg:w-2/3">
             <div class="bg-white rounded-2xl border border-[#ecddc8]/60 shadow-sm overflow-hidden">
                 <div class="px-4 md:px-6 py-4 border-b border-gray-100 flex items-center justify-between">
@@ -76,9 +74,7 @@
             </div>
         </div>
 
-        {{-- ═══════════════════════════════════════ --}}
         {{-- PANEL KANAN — Keranjang + Checkout (1/3)--}}
-        {{-- ═══════════════════════════════════════ --}}
         <div class="w-full lg:w-1/3 space-y-4 mb-10 lg:mb-0">
 
             {{-- Keranjang --}}
@@ -166,22 +162,22 @@
                     @endif
                 </div>
 
-                {{-- Nominal Diterima --}}
+                {{-- Nominal Bayar --}}
                 <div>
-                    <label class="block text-[10px] md:text-xs font-semibold text-gray-600 mb-1.5">Nominal Uang Diterima</label>
+                    <label class="block text-[10px] md:text-xs font-semibold text-gray-600 mb-1.5">Nominal Bayar</label>
                     <div class="relative">
                         <span class="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-xs md:text-sm text-gray-400 font-medium">Rp</span>
-                        <input type="number" wire:model.live="nominalDiterima"
+                        <input type="number" wire:model.live="nominalBayar"
                                placeholder="{{ $totalPendapatan }}"
                                class="w-full pl-9 md:pl-10 pr-3 md:pr-4 py-2 md:py-2.5 border border-gray-200 rounded-xl text-xs md:text-sm font-semibold focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
                     </div>
-                    @if($nominalDiterima && (int)$nominalDiterima >= $totalPendapatan)
-                    <p class="text-[10px] md:text-xs text-emerald-600 mt-1.5 font-medium">
-                        ✓ Pembayaran cukup
+                    @if($nominalBayar && (int)$nominalBayar >= $totalPendapatan)
+                    <p class="text-[11px] md:text-sm font-bold text-emerald-600 mt-2">
+                        Kembalian: Rp{{ number_format($this->kembalian, 0, ',', '.') }}
                     </p>
-                    @elseif($nominalDiterima)
+                    @elseif($nominalBayar)
                     <p class="text-[10px] md:text-xs text-red-500 mt-1.5">
-                        ✗ Kurang Rp{{ number_format($totalPendapatan - (int)$nominalDiterima, 0, ',', '.') }}
+                        ✗ Kurang Rp{{ number_format($totalPendapatan - (int)$nominalBayar, 0, ',', '.') }}
                     </p>
                     @endif
                 </div>
@@ -192,8 +188,8 @@
                         wire:confirm="Simpan transaksi Rp{{ number_format($totalPendapatan,0,',','.') }} dengan {{ $metodePembayaran }}?"
                         @class([
                             'w-full py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold shadow-md transition-all duration-200 flex items-center justify-center gap-2',
-                            'bg-[#D4831F] hover:bg-[#b86a16] text-white hover:shadow-lg' => !empty($nominalDiterima) && (int)$nominalDiterima >= $totalPendapatan,
-                            'bg-gray-200 text-gray-400 cursor-not-allowed' => empty($nominalDiterima) || (int)$nominalDiterima < $totalPendapatan,
+                            'bg-[#D4831F] hover:bg-[#b86a16] text-white hover:shadow-lg' => $metodePembayaran !== 'tunai' || (!empty($nominalBayar) && (int)$nominalBayar >= $totalPendapatan),
+                            'bg-gray-200 text-gray-400 cursor-not-allowed' => $metodePembayaran === 'tunai' && (empty($nominalBayar) || (int)$nominalBayar < $totalPendapatan),
                         ])>
                     <span wire:loading wire:target="simpanTransaksi">
                         <svg class="animate-spin w-3.5 h-3.5 md:w-4 md:h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>

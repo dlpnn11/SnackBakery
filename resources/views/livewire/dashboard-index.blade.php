@@ -4,9 +4,9 @@
             <h1 class="text-xl md:text-2xl font-bold text-[#8B5E3C]">📊 Dashboard</h1>
             <p class="text-xs md:text-sm text-gray-400 mt-0.5">Ringkasan performa bisnis Snack & Bakery</p>
         </div>
-        <p class="text-[11px] md:text-xs text-gray-400 bg-white border border-gray-100 px-3 md:px-4 py-2 rounded-xl shadow-sm self-start md:self-auto">
+        {{-- <p class="text-[11px] md:text-xs text-gray-400 bg-white border border-gray-100 px-3 md:px-4 py-2 rounded-xl shadow-sm self-start md:self-auto">
             📅 {{ now()->isoFormat('dddd, D MMMM YYYY') }}
-        </p>
+        </p> --}}
     </div>
 
     {{-- ══════════════════════════════════════════ --}}

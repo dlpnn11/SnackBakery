@@ -172,7 +172,7 @@
                                 <label class="block text-xs font-semibold text-gray-600 mb-1.5">Harga Jual (Rp) <span class="text-red-400">*</span></label>
                                 <div class="relative">
                                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">Rp</span>
-                                    <input type="number" wire:model="harga_jual" placeholder="15000"
+                                    <input type="number" min="0" wire:model="harga_jual" placeholder="15000"
                                            class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
                                 </div>
                                 @error('harga_jual')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
@@ -180,13 +180,13 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-600 mb-1.5">Stok Awal <span class="text-red-400">*</span></label>
-                                    <input type="number" wire:model="stok" placeholder="0"
+                                    <input type="number" min="0" wire:model="stok" placeholder="0"
                                            class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
                                     @error('stok')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-600 mb-1.5">Min Stok <span class="text-red-400">*</span></label>
-                                    <input type="number" wire:model="minimum_stok" placeholder="5"
+                                    <input type="number" min="0" wire:model="minimum_stok" placeholder="5"
                                            class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
                                     @error('minimum_stok')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
                                 </div>
@@ -236,7 +236,7 @@
                                         </select>
                                     </div>
                                     <div class="col-span-1 md:col-span-4 mt-1 md:mt-0">
-                                        <input type="number" step="0.01" wire:model="resepRows.{{ $i }}.kebutuhan_satuan"
+                                        <input type="number" step="1" min="1" wire:model="resepRows.{{ $i }}.kebutuhan_satuan"
                                                placeholder="Takaran (contoh: 100)"
                                                class="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
                                     </div>
