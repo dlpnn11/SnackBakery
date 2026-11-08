@@ -37,7 +37,7 @@
   ],
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "false",
+    "APP_DEBUG": "true",
     "LOG_CHANNEL": "stderr",
     "LARAVEL_STORAGE_PATH": "/tmp/storage",
     "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
@@ -49,7 +49,6 @@
     "CACHE_STORE": "array",
     "CACHE_DRIVER": "array",
     "SESSION_DRIVER": "cookie",
-    "APP_MAINTENANCE_DRIVER": "cache",
     "DB_CONNECTION": "pgsql",
     "DB_PORT": "5432",
     "DB_DATABASE": "postgres",
