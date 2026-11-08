@@ -56,6 +56,12 @@ class E2EEnvironment
 
     public static function get(string $key, ?string $default = null): ?string
     {
+        // For project configurations, check project .env first to avoid phpunit.xml testing overrides
+        $parsed = self::loadEnv();
+        if (isset($parsed[$key]) && $parsed[$key] !== '') {
+            return (string) $parsed[$key];
+        }
+
         $sysVal = getenv($key);
         if ($sysVal !== false && $sysVal !== '') {
             return $sysVal;
@@ -63,11 +69,6 @@ class E2EEnvironment
 
         if (isset($_ENV[$key]) && $_ENV[$key] !== '') {
             return (string) $_ENV[$key];
-        }
-
-        $parsed = self::loadEnv();
-        if (isset($parsed[$key]) && $parsed[$key] !== '') {
-            return (string) $parsed[$key];
         }
 
         return $default;
@@ -291,7 +292,13 @@ class E2EEnvironment
             foreach ($headerLines as $line) {
                 if (str_contains($line, ':')) {
                     [$hk, $hv] = explode(':', $line, 2);
-                    $responseHeaders[strtolower(trim($hk))] = trim($hv);
+                    $headerKey = strtolower(trim($hk));
+                    $headerVal = trim($hv);
+                    if (isset($responseHeaders[$headerKey])) {
+                        $responseHeaders[$headerKey] .= "\n" . $headerVal;
+                    } else {
+                        $responseHeaders[$headerKey] = $headerVal;
+                    }
                 }
             }
         }
