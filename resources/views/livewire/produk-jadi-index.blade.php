@@ -234,11 +234,13 @@
                                                 <option value="{{ $b->id }}">{{ $b->nama_bahan }} ({{ $b->satuan }})</option>
                                             @endforeach
                                         </select>
+                                        @error('resepRows.'.$i.'.bahan_baku_id')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
                                     </div>
                                     <div class="col-span-1 md:col-span-4 mt-1 md:mt-0">
-                                        <input type="number" step="1" min="1" wire:model="resepRows.{{ $i }}.kebutuhan_satuan"
+                                        <input type="number" step="0.01" min="0.01" wire:model="resepRows.{{ $i }}.kebutuhan_satuan"
                                                placeholder="Takaran (contoh: 100)"
                                                class="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#D4831F]/30 focus:border-[#D4831F] outline-none transition-all"/>
+                                        @error('resepRows.'.$i.'.kebutuhan_satuan')<p class="text-xs text-red-500 mt-1">{{ $message }}</p>@enderror
                                     </div>
                                     <div class="hidden md:flex col-span-1 justify-center">
                                         <button type="button" wire:click="hapusBahanResep({{ $i }})"

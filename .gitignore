@@ -24,3 +24,13 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Antigravity & Agent Teamwork Metadata
+/.agents/
+
+# Vercel Deployment & Runtime Cache
+/.vercel/
+
+# Environment configurations
+.env.*
+!.env.example

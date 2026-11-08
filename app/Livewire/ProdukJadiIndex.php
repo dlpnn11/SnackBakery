@@ -48,7 +48,7 @@ class ProdukJadiIndex extends Component
             'stok'                           => 'required|integer|min:0',
             'minimum_stok'                   => 'required|integer|min:0',
             'resepRows.*.bahan_baku_id'      => 'nullable|exists:bahan_baku,id',
-            'resepRows.*.kebutuhan_satuan'   => 'nullable|integer|min:1',
+            'resepRows.*.kebutuhan_satuan'   => 'nullable|numeric|min:0.01',
         ];
     }
 
@@ -60,6 +60,9 @@ class ProdukJadiIndex extends Component
             'harga_jual.min'        => 'Harga jual tidak boleh negatif.',
             'stok.required'         => 'Stok wajib diisi.',
             'minimum_stok.required' => 'Minimum stok wajib diisi.',
+            'resepRows.*.bahan_baku_id.exists' => 'Bahan baku tidak valid.',
+            'resepRows.*.kebutuhan_satuan.numeric' => 'Takaran harus berupa angka.',
+            'resepRows.*.kebutuhan_satuan.min' => 'Takaran minimal 0.01.',
         ];
     }
 
@@ -182,7 +185,6 @@ class ProdukJadiIndex extends Component
                     : 'Produk jadi baru berhasil ditambahkan!',
                 'success'
             );
-
         } catch (\Exception $e) {
             $this->setFlash('Terjadi kesalahan: ' . $e->getMessage(), 'danger');
         }
@@ -261,13 +263,19 @@ class ProdukJadiIndex extends Component
         $totalStok    = $all->sum('stok');
         $totalAset    = $all->sum(fn($p) => $p->stok * $p->harga_jual);
         $totalKritis  = $all->filter(fn($p) => in_array(
-            self::getStatus($p)['label'], ['Kritis', 'Habis']
+            self::getStatus($p)['label'],
+            ['Kritis', 'Habis']
         ))->count();
 
         $bahanList = BahanBaku::orderBy('nama_bahan')->get();
 
         return view('livewire.produk-jadi-index', compact(
-            'produkList', 'totalItem', 'totalStok', 'totalAset', 'totalKritis', 'bahanList'
+            'produkList',
+            'totalItem',
+            'totalStok',
+            'totalAset',
+            'totalKritis',
+            'bahanList'
         ))->layout('layouts.erp', ['title' => 'Produk Jadi — Mini ERP']);
     }
 }
