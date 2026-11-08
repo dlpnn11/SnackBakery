@@ -13,6 +13,23 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('healthz', function () {
+    try {
+        $userCount = \App\Models\User::count();
+        return response()->json([
+            'status' => 'healthy',
+            'database' => 'connected',
+            'driver' => \Illuminate\Support\Facades\DB::connection()->getDriverName(),
+            'users_in_supabase' => $userCount,
+        ]);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+});
+
 Route::get('dashboard', DashboardIndex::class)
     ->middleware(['auth'])
     ->name('dashboard');
